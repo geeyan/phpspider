@@ -762,6 +762,9 @@ class phpspider
                 self::$daemonize = true;
             }
             break;
+        case 'start_daemon':
+            self::$daemonize = true;
+            break;
         case 'stop':
             exec("ps aux | grep $start_file | grep -v grep | awk '{print $2}'", $info);
             if (count($info) <= 1)
