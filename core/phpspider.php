@@ -468,7 +468,7 @@ class phpspider
         {
             self::$queue_config['prefix'] = self::$queue_config['prefix'].'-'.substr(md5($configs['name']), 0, 4);
         }
-	
+    
         self::$configs = $configs;
     }
 
@@ -736,13 +736,21 @@ class phpspider
     {
         // 检查运行命令的参数
         global $argv;
-        $start_file = $argv[0]; 
 
-        // 命令
-        $command = isset($argv[1]) ? trim($argv[1]) : 'start';
-
-        // 子命令, 目前只支持-d
-        $command2 = isset($argv[2]) ? $argv[2] : '';
+        $start_file = $argv[0];
+        // 兼容laravel
+        if ($start_file == 'artisan') {
+            $start_file = $start_file . ' ' . $argv[1];
+            // 命令
+            $command = isset($argv[2]) ? trim($argv[2]) : 'start';
+            // 子命令, 目前只支持-d
+            $command2 = isset($argv[3]) ? $argv[3] : '';
+        } else {
+            // 命令
+            $command = isset($argv[1]) ? trim($argv[1]) : 'start';
+            // 子命令, 目前只支持-d
+            $command2 = isset($argv[2]) ? $argv[2] : '';
+        }
 
         // 根据命令做相应处理
         switch($command)
@@ -776,7 +784,7 @@ class phpspider
             exit(0);
             // 未知命令
         default :
-            exit("Usage: php yourfile.php {start|stop|status|kill}\n");
+            exit("Usage: php {$start_file} {start|stop|status|kill}\n");
         }
     }
 
@@ -1343,7 +1351,7 @@ class phpspider
 
         // 爬完页面开始处理时间
         $page_time_start = microtime(true);
-	
+    
         if (!$html) 
         {
             return false;
