@@ -766,7 +766,7 @@ class phpspider
             self::$daemonize = true;
             break;
         case 'stop':
-            exec("ps aux | grep $start_file | grep -v grep | awk '{print $2}'", $info);
+            exec("ps aux | grep '{$start_file}' | grep -v grep | awk '{print $2}'", $info);
             if (count($info) <= 1)
             {
                 echo "PHPSpider[$start_file] not run\n";
@@ -775,12 +775,12 @@ class phpspider
             {
                 //echo "PHPSpider[$start_file] is stoping ...\n";
                 echo "PHPSpider[$start_file] stop success";
-                exec("ps aux | grep $start_file | grep -v grep | awk '{print $2}' |xargs kill -SIGINT", $info);
+                exec("ps aux | grep '{$start_file}' | grep -v grep | awk '{print $2}' |xargs kill -SIGINT", $info);
             }
             exit;
             break;
         case 'kill':
-            exec("ps aux | grep $start_file | grep -v grep | awk '{print $2}' |xargs kill -SIGKILL");
+            exec("ps aux | grep '{$start_file}' | grep -v grep | awk '{print $2}' |xargs kill -SIGKILL");
             break;
             // 显示 phpspider 运行状态
         case 'status':
