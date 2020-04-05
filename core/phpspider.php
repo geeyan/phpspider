@@ -2000,7 +2000,7 @@ class phpspider
         {
             if ($this->on_extract_page) 
             {
-                $return = call_user_func($this->on_extract_page, $page, $fields);
+                $return = call_user_func($this->on_extract_page, $page, $fields, $this);
                 if (!isset($return))
                 {
                     log::warn("on_extract_page return value can't be empty");
