@@ -990,7 +990,7 @@ class queue
         {
             if ( self::$links[self::$link_name] )
             {
-                return self::$links[self::$link_name]->lSize($key);
+                return self::$links[self::$link_name]->llen($key);
             }
         }
         catch (Exception $e)
